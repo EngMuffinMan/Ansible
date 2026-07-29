@@ -1,0 +1,19 @@
+- name: Set up virtualized instance
+  community.proxmox.proxmox_kvm:
+    api_host: '{{ proxmox_host }}'
+    api_user: root@pam
+    node: SMOLLET
+    name: '{{ name }}'
+
+    cores: '{{ cores }}'
+    vcpus: '{{ vcpus }}'
+    memory: '{{ memory }}'
+
+    state: started
+
+    net:
+      net0: 'virtio,bridge=opnbr0,firewall=0'
+
+    virtio:
+      virtio0: 'VMs_LVM:32'
+      virtio1: '<??????>:iso/debian_13.iso,media=cdrom'

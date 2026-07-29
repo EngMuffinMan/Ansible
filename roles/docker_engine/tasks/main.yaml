@@ -1,0 +1,8 @@
+- name: Install Docker Engine
+  become: true
+  ansible.builtin.apt:
+    state: present
+    name: vim
+
+- name: Install user for docker to run as
+  ansible.builtin.ping:
