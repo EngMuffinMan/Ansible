@@ -1,5 +1,12 @@
-- name: Add Tom user
-  ansible.builtin.ping:
-
+- name: Ensure system is up to date 
+  ansible.builtin.command: apt update && apt upgrade -y
 - name: Install common packages
-  ansible.builtin.ping:
+  ansible.builtin.apt:
+    name:
+      sudo
+    state: latest
+    update_cache: yes
+- name: Make default user a sudoer
+  ansible.builtin.shell: usermod -aG sudo {{ DEFAULT_USER | quote }}
+  vars:
+    DEFAULT_USER: "" 

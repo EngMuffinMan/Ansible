@@ -1,1 +1,49 @@
-Ansible/.env
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+
+# Build output
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+credentials.json
+service-account.json

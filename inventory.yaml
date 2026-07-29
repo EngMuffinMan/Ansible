@@ -1,9 +1,23 @@
-SMOLLET-servers:
+# Centralized file for managed nodes
+# Provides system info and network locations
+SMOLLET_VMs:
   hosts:
     mealie:
+      ansible_host: mealie.internal
+      http_port: 443
+    servarr:
+      ansible_host: servarr.internal
 
-all_servers:
+SMOLLET_LXCs:
+  hosts:
+
+SMOLLET:
+  children:
+    SMOLLET_VMs:
+    SMOLLET_LXCs:
+
+GardenGate:
     children:
-        mealie-servers:
+      SMOLLET:
     vars:
-        ansible_user: user
+      ansible_user: user

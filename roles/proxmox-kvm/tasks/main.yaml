@@ -1,4 +1,4 @@
-- name: Set up machine
+- name: Set up virtualized instance
   community.proxmox.proxmox_kvm:
     name: '{{ name }}'
     node: SMOLLET
