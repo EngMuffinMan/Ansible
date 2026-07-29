@@ -1,0 +1,5 @@
+- name: Add Tom user
+  ansible.builtin.ping:
+
+- name: Install common packages
+  ansible.builtin.ping:

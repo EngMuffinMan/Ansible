@@ -1,0 +1,9 @@
+mealie-servers:
+  hosts:
+    mealie:
+
+all_servers:
+    children:
+        mealie-servers:
+    vars:
+        ansible_user: user

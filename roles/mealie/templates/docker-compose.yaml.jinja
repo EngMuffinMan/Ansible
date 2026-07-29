@@ -1,0 +1,20 @@
+services:
+  mealie:
+    image: "ghcr.io/mealie-recipes/mealie:{{ docker_tag }}"
+    container_name: mealie
+    restart: unless-stopped
+    ports:
+        - "9925:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 1000M #
+    volumes:
+      - /opt/mealie/data:/app/data/
+    environment:
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: "false"
+      PUID: 1000
+      PGID: 1000
+      TZ: America/New_York
+      BASE_URL: https://mealie.gardengate.cc
