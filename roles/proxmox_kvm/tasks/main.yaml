@@ -2,7 +2,9 @@
   community.proxmox.proxmox_kvm:
     api_host: '{{ proxmox_host }}'
     api_user: root@pam
-    node: SMOLLET
+    api_token_id: '{{ proxmox_token_id }}'
+    api_token_secret: '{{ proxmox_token_secret }}'
+    node: '{{ proxmox_node }}'
     name: '{{ name }}'
 
     cores: '{{ cores }}'

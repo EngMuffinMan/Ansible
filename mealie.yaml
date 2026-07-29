@@ -22,7 +22,7 @@
           efitype: 4m
           pre_enrolled_keys: 1
     # Connects to new VM to do work
-    - name: Install common stuff
+    - name: Install default packages
       ansible.builtin.include_role:
         name: common
     - name: Install Docker Engine

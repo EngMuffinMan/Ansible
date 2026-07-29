@@ -1,12 +1,24 @@
-- name: Ensure system is up to date 
-  ansible.builtin.command: apt update && apt upgrade -y
+- name: Update cache and upgrade OS
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
 - name: Install common packages
+  become: true
+  become_user: root
   ansible.builtin.apt:
     name:
-      sudo
-    state: latest
-    update_cache: yes
+      - sudo
+      # Insert additional packages here as needed
+    state: present
 - name: Make default user a sudoer
-  ansible.builtin.shell: usermod -aG sudo {{ DEFAULT_USER | quote }}
-  vars:
-    DEFAULT_USER: "" 
+  become: true
+  become_user: root
+  ansible.builtin.user:
+    name: '{{ default_user }}'
+    shell: /bin/bash
+    groups: sudo
+    append: true
+    create_home: true
+    state: present
