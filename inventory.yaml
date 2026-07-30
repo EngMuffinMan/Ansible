@@ -2,22 +2,122 @@
 # Provides system info and network locations
 SMOLLET_VMs:
   hosts:
-    mealie:
-      ansible_host: mealie.internal
-      https_port: 443
+    sweetums:
+      ansible_host: sweetums.internal
+      ansible_python_interpreter: /usr/local/bin/python3
+      ansible_shell executable: /bin/sh
+    haos:
+      ansible_host: haos.internal
+    debian:
+      ansible_host: debian.internal
+    tails:
+      ansible_host: tails.internal
+    guacamole:
+      ansible_host: guacamole.internal
+    spiderfoot:
+      ansible_host: spiderfoot.internal
+    openvas:  
+      ansible_host: openvas.internal
+    cyberchef:
+      ansible_host: cyberchef.internal
+    cape: 
+      ansible_host: cape.internal
+    overseerr:
+      ansible_host: overseerr.internal
     servarr:
       ansible_host: servarr.internal
+    cockpit:
+      ansible_host: cockpit.internal
+    mealie:
+      ansible_host: mealie.internal
+    unifi_os:
+      ansible_host: unifi-os.internal
+    authentik:
+      ansible_host: authentik.internal
+    termix:
+      ansible_host: termix.internal
+    actualbudget:
+      ansible_host: actualbudget.internal
+    dvwa:
+      ansible_host: dvwa.internal
+    nomad:
+      ansible_host: nomad.internal
+      
 
 SMOLLET_LXCs:
   hosts:
+    unifi:
+      ansible_host: unifi.internal
+    planka:
+      ansible_host: planka.internal
+    calibre_web:
+      ansible_host: calibre-web.internal
+    bentopdf:
+      ansible_host: bentopdf.internal
+    nginx:
+      ansible_host: nginx.internal
+    netbox:
+      ansible_host: netbox.internal
+    grafana:
+      ansible_host: grafana.internal
+    foundry:
+      ansible_host: foundry.internal
+    vikunja:
+      ansible_host: vikunja.internal
+    ollama:
+      ansible_host: ollama.internal
+
+admin:
+  hosts:
+    unifi:
+    sweetums:
+    haos:
+    unifi_os:
+    authentik:
+
+analysis:
+  hosts:
+    spiderfoot:
+    openvas:
+    cyberchef:
+    cape:
+
+home:
+  hosts:
+    planka:
+    calibre_web:
+    bentopdf:
+    foundry:
+    vikunja:
+    overseerr:
+    servarr:
+    mealie:
+    actualbudget:
+
+management:
+  hosts:
+    netbox:
+    grafana:
 
 SMOLLET:
   children:
     SMOLLET_VMs:
+      vars:
+        # ansible_connection: community.proxmox.proxmox_qemu_api
     SMOLLET_LXCs:
+      vars:
+        # ansible_connection: community.general.lxc
+        # ansible_connection: community.proxmox.proxmox_pct_remote
+
+proxmox_nodes:
+  children:
+    SMOLLET:
 
 GardenGate:
-    children:
-      SMOLLET:
-    vars:
-      ansible_user: user
+  children:
+    proxmox_nodes:
+  vars:
+    ansible_user: '{{ ansible_user }}'
+    dhcp_server: '{{ dhcp_server }}'
+    ntp_server: '{{ ntp_server }}'
+    dns_server: '{{ dns_server }}'

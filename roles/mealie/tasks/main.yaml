@@ -1,17 +1,16 @@
-- name: Create Mealie Data Dir
+- name: Create Mealie data directory
   ansible.builtin.file:
     path: /opt/mealie/data
     state: directory
-    recurse: yes
+    recurse: true
     owner: foo
     group: foo
 
-- name: Install Mealie Compose File
+- name: Build Mealie Docker-Compose file
   ansible.builtin.template:
     src: templates/docker-compose.yaml.jinja
     dest: /opt/mealie
-    vars:
-      docker_tag: v3.22.0
+    mode: "0755"
 
 - name: Start Mealie
   community.docker.docker_compose_v2:

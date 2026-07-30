@@ -1,6 +1,9 @@
 # Playbook for Mealie deployment
 - name: Deploy Mealie
   hosts: mealie
+  become: true
+  vars:
+    ansible_become_pass: '{{ become_pass }}'
   tasks:
     # Connects to Proxmox to do work
     - name: Create VM
