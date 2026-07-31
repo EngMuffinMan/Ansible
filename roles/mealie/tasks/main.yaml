@@ -3,8 +3,8 @@
     path: /opt/mealie/data
     state: directory
     recurse: true
-    owner: foo
-    group: foo
+    owner: '{{ default_user }}'
+    group: '{{ default_user }}'
 
 - name: Build Mealie Docker-Compose file
   ansible.builtin.template:

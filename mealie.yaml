@@ -5,7 +5,7 @@
   vars:
     ansible_become_pass: '{{ become_pass }}'
   tasks:
-    # Connects to Proxmox to do work
+    # Connects to ProxmoxVE to do work
     - name: Create VM
       ansible.builtin.include_role:
         name: proxmox_kvm
@@ -17,13 +17,16 @@
         vcpus: 1
         bios: ovmf
         machine: q35
-        scsi:
+        scsi: # UPDATE?
         net:
           net0: virtio,bridge=opnbr0,firewall=1
         scsihw: virtio-scsi-single
         efidisk0:
           efitype: 4m
           pre_enrolled_keys: 1
+        virtio:
+          virtio0: 'VMs_LVM:32'
+          virtio1: '<??????>:iso/debian_13.iso,media=cdrom'
     # Connects to new VM to do work
     - name: Install default packages
       ansible.builtin.include_role:

@@ -1,21 +1,25 @@
 - name: Set up virtualized instance
   community.proxmox.proxmox_kvm:
+    state: started
     api_host: '{{ proxmox_host }}'
-    api_user: root@pam
+    api_user: '{{ api_user }}'
     api_token_id: '{{ proxmox_token_id }}'
     api_token_secret: '{{ proxmox_token_secret }}'
     node: '{{ proxmox_node }}'
     name: '{{ name }}'
-
+    memory: '{{ memory }}'
+    balloon: '{{ balloon }}'
     cores: '{{ cores }}'
     vcpus: '{{ vcpus }}'
-    memory: '{{ memory }}'
-
-    state: started
-
+    bios: '{{ bios }}'
+    machine: '{{ machine }}'
+    scsi: '{{ scsi }}'
     net:
-      net0: 'virtio,bridge=opnbr0,firewall=0'
-
+      net0: '{{ net0 }}'
+    scsihw: '{{ scsihw }}'
+    efidisk0:
+      efitype: '{{ efitype }}'
+      pre_enrolled_keys: '{{ pre_enrolled_keys }}'
     virtio:
-      virtio0: 'VMs_LVM:32'
-      virtio1: '<??????>:iso/debian_13.iso,media=cdrom'
+      virtio0: '{{ virtio0 }}'
+      virtio1: '{{ virtio1 }}'

@@ -49,3 +49,4 @@
     name: '{{ default_user }}'
     groups: docker
     append: true
+    state: present

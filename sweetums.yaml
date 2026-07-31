@@ -1,0 +1,37 @@
+# Playbook for Mealie deployment
+- name: Deploy SWEETUMS
+  hosts: sweetums
+  become: true
+  vars:
+    ansible_become_pass: '{{ become_pass }}'
+  tasks:
+    # Connects to ProxmoxVE to do work
+    - name: Create VM
+      ansible.builtin.include_role:
+        name: proxmox_kvm
+      vars:
+        name: SWEETUMS
+        memory: 8192
+        balloon: 0
+        cores: 4
+        vcpus: 1
+        bios: # UPDATE
+        machine: # UPDATE
+        scsi: # UPDATE?
+        net:
+          net0: virtio,bridge=opnbr0,firewall=0
+          net1: virtio,bridge=vmbr1,firewall=0
+        scsihw: virtio-scsi-single
+        efidisk0: # UPDATE
+          efitype: # 4m
+          pre_enrolled_keys: # 1
+        virtio:
+          virtio0: # 'VMs_LVM:32'
+          virtio1: # '<??????>:iso/opnsense_v?.iso,media=cdrom'
+    # Connects to new instance to do work
+    - name: Install default packages
+      ansible.builtin.include_role:
+        name: # common
+    - name: Build OpnSense firewall
+      ansible.builtin.include_role:
+        name: opnsense
